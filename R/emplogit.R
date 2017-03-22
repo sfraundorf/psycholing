@@ -81,9 +81,9 @@ emplogit <- function(hits,n,proportion,rawdata, na.rm=FALSE) {
 	}
 	
 	if (!missing('hits')) {
-		if (hits > n) {
+		if (any(hits > n)) {
 			warning('Number of hits greater than total number of observations!')
-		} else if (hits < 0) {
+		} else if (any(hits < 0)) {
 			warning('Number of hits must be >= 0')
 		}
 	}	
