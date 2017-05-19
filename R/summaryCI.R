@@ -16,6 +16,7 @@
 #' model1 <- lmer(y ~ service + (1|s) + (1|d), data=InstEval)
 #' summaryCI(model1)
 #' @export
+#' @importFrom stats family qnorm
 
 summaryCI <- function(model, confidence=.95) {
 
@@ -23,32 +24,32 @@ summaryCI <- function(model, confidence=.95) {
 	if (family(model)$family != "gaussian") {
 		stop('Model was not fit using a Gaussian / normal distribution.')
 	}
-	
+
 	# Change percents into proportions if needed:
 	if (confidence > 1) {
 		confidence = confidence/100
 	}
-	
+
 	# Get the existing model summary:
 	model.summary <- summary(model)
 	coefs <- model.summary$coefficients
-	
+
 	# Make it two-tailed:
 	p <- 1-((1-confidence)/2)
 	# Get the quantile
 	quantile <- qnorm(p)
-		
+
 	# Calculate confidence interval:
 	ci.lower <- coefs[,1] - (quantile * coefs[,2])
 	ci.upper <- coefs[,1] + (quantile * coefs[,2])
-	                     
+
 	# Add these to the coefficients table:
 	model.summary$coefficients <- cbind('Estimate'=coefs[,'Estimate'],
 	                                    'Std. Error'=coefs[,'Std. Error'],
 	                                    't value'=coefs[,'t value'],
 	                                    'Lower CI'=ci.lower,
 	                                    'Upper CI'=ci.upper)
-		
+
 	# Display:
 	model.summary
 }

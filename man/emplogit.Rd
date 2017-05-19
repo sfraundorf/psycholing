@@ -32,7 +32,7 @@ value of the empirical logit.
 }
 \description{
 Calculates the empirical logit for binomial data; i.e., data that consists of
-"hits" (1s) versus "misses" (0s).  The formula for the empirical logit 
+"hits" (1s) versus "misses" (0s).  The formula for the empirical logit
 requires specification of the sample size; sample size may be provided to
 this function in any one of three ways:
 \itemize{

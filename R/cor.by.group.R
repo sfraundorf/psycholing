@@ -9,7 +9,7 @@
 #' factorial experiment.
 #' @param x one of the numeric vectors to be correlated.
 #' @param y the other numeric vector to be correlated.
-#' @param INDEX list of one or more grouping variables, typically factors, each 
+#' @param INDEX list of one or more grouping variables, typically factors, each
 #' of the same length as \code{x}.
 #' @param ... arguments to \code{\link{cor}}.
 #' @seealso \code{\link{cor}} for correlations without division into groups.
@@ -24,9 +24,10 @@
 #' # Correlation of nutrient and total.fruits for each combination of
 #' # reg x status
 #' @export
+#' @importFrom stats cor
 
 cor.by.group <- function(x, y, INDEX, ...) {
-	
+
 	mapply(function(x,y) cor(x,y, ...), split(x,INDEX), split(y,INDEX))
-	
+
 }

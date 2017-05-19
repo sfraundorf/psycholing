@@ -40,21 +40,22 @@
 #'    'InvalidCue', 'NoCue', 'InvalidCue', 'NoCue', 'InvalidCue'))
 #' contr.helmert.weighted(cuedata, reference.levels=c('ValidCue','InvalidCue'))
 #' @export
+#' @importFrom stats contr.helmert
 
 contr.helmert.weighted <- function(x,
            reference.levels=levels(as.factor(x))[-length(levels(as.factor(x)))],
            na.rm=FALSE) {
-           
+
     # Coerce to a factor if needed:
 	if (is.factor(x) == FALSE) {
 		warning(paste0('Coerced to a factor from ',class(x)))
 		x <- as.factor(x)
 	}
-        
+
 	# First, code the factor w/o centering:
 	helmert.matrix <- contr.helmert.unweighted(x,
-	   reference.levels=reference.levels)    
-    
+	   reference.levels=reference.levels)
+
     # Handle NAs:
     if (any(is.na(x)) & !na.rm) {
     	helmert.matrix[,] <- NA
@@ -62,13 +63,13 @@ contr.helmert.weighted <- function(x,
     } else if (na.rm) {
     	x <- na.omit(x)
     }
-    
+
 	# Frequency count of the levels:
 	level.freq <- summary(x)
 	# Total number of observations:
-	total.obs <- sum(summary(x))    
-	
+	total.obs <- sum(summary(x))
+
 	# Center each contrast around its mean:
 	apply(helmert.matrix, 2,
-	   function(contrast) contrast - (sum(level.freq * contrast/total.obs)))	       
+	   function(contrast) contrast - (sum(level.freq * contrast/total.obs)))
 }

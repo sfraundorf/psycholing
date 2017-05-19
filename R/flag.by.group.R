@@ -36,6 +36,7 @@
 #'   list(VerbAgg$btype, VerbAgg$situ), sds=3)
 #' # 3 std devs from behavior type x situation type cell mean
 #' @export
+#' @importFrom stats sd na.omit
 
 flag.by.group <- function(x, INDEX, sds=3, print=TRUE, na.rm=FALSE) {
 

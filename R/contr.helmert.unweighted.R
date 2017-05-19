@@ -47,6 +47,7 @@
 #' contr.helmert.unweighted(x=cuedata,
 #'                          reference.levels=c('ValidCue','InvalidCue'))
 #' @export
+#' @importFrom stats contr.helmert
 
 contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
                                  n=NULL) {
@@ -56,7 +57,7 @@ contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
 	if (!missing(x) & !missing(n)) {
 		stop('Provide vector of data OR number of levels, not both')
 	}
-	
+
 	# Work with a vector of data:
 	if (missing(n)) {
 
@@ -65,11 +66,11 @@ contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
 			warning(paste0('Coerced to a factor from ',class(x)))
 			x <- as.factor(x)
 		}
-	
+
 		# Get levels:
 		n <- levels(x)
 	}
-	
+
 	# Get levels:
 	if (is.numeric(n)) {
 		levels <- 1:n
@@ -80,14 +81,14 @@ contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
 	numlevels <- length(levels)
 	# Get number of contrasts:
 	k <- numlevels-1
-	
+
 	# Check to make sure the right number of reference levels were specified
 	if (length(reference.levels) != k) {
-		stop(paste('Wrong number of reference levels!', 
+		stop(paste('Wrong number of reference levels!',
 		  k, 'contrast(s) needed, but', length(reference.levels),
 		  'reference level(s) specified', sep= ' '))
 	}
-	
+
 	# Make sure none of the reference levels is out of bounds
 	if (is.numeric(reference.levels)) {
 		if (any(reference.levels < 0) | any(reference.levels > numlevels) |
@@ -95,7 +96,7 @@ contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
 			stop(paste0('Level indices must be integers 1 <= x <= ', numlevels))
 		}
 	}
-	
+
 	# Convert the reference levels from characters to numbers, if needed:
 	if (is.character(reference.levels)) {
 		newreflevels <- sapply(reference.levels,
@@ -103,15 +104,15 @@ contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
 		if (any(is.na(newreflevels))) {
 			# User named a level that's not actually a level of the factor
 			badlevels <- newreflevels[is.na(newreflevels)]
-			stop(paste0('Factor does not have a level named "', 
+			stop(paste0('Factor does not have a level named "',
 				     names(badlevels[1]), '"'))
 		}
 		reference.levels <- newreflevels
-	}	
-	
+	}
+
 	# Get default helmert contrasts:
 	orig.matrix <- contr.helmert(numlevels)
-	
+
 	# Reorder the matrix according to the desired contrasts:
 	# Step 1 - get the correct ordering of contrasts
 	contrast.order <- c(reference.levels,
@@ -120,8 +121,8 @@ contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
 	rownames(orig.matrix) <- levels[contrast.order]
 	# Step 3 - reorder matrix to match the original ordering of factor levels
 	sorted.matrix <- orig.matrix[levels,,drop=FALSE]
-		
+
 	# Rescale and return:
 	apply(sorted.matrix, 2, function(x) x/length(x[x != 0]) )
-	
+
 }

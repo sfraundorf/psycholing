@@ -32,14 +32,15 @@
 #' my.data <- data.frame(RT=rnorm(300, mean=789, sd=150))
 #' my.data$TrimmedRT <- trim(my.data$RT, sds=2.5)
 #' @export
+#' @importFrom stats sd na.omit
 
 trim <- function(x,sds=3,print=TRUE,na.rm=FALSE) {
-	
+
 	upperlimit <- mean(x, na.rm=na.rm) + (sd(x, na.rm=na.rm) * sds)
 	lowerlimit <- mean(x, na.rm=na.rm) - (sd(x, na.rm=na.rm) * sds)
-	
+
 	y <- ifelse(x>upperlimit, NA, ifelse(x<lowerlimit, NA, x))
-	
+
 	if (print) {
 		if (na.rm & any(is.na(x))) {
 			# Display percentages w/ and w/o NAs
@@ -58,7 +59,7 @@ trim <- function(x,sds=3,print=TRUE,na.rm=FALSE) {
 			  ' (', round(100*number.trimmed/length(y),2), '%)', sep=''))
 		}
 	}
-	
+
 	y
 
 }

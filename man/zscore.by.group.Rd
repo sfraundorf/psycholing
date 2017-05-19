@@ -9,7 +9,7 @@ zscore.by.group(x, INDEX)
 \arguments{
 \item{x}{a numeric vector}
 
-\item{INDEX}{list of one or more grouping variables, typically factors, each 
+\item{INDEX}{list of one or more grouping variables, typically factors, each
 of the same length as x}
 }
 \value{

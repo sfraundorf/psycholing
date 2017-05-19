@@ -36,25 +36,26 @@
 #'                                 paduniquenames=TRUE) # for 01 rather than 1
 #' @rdname read.multiple
 #' @export
-	
-read.multiple.table <- function(uniquenames, path=getwd(), prefix='', 
-                                suffix='.txt', addfilename=FALSE, 
-                                paduniquenames=FALSE, ...) {	
-		
+#' @importFrom utils read.csv read.table
+
+read.multiple.table <- function(uniquenames, path=getwd(), prefix='',
+                                suffix='.txt', addfilename=FALSE,
+                                paduniquenames=FALSE, ...) {
+
 	# check to make sure the path has a / at the end
 	if (substr(path,nchar(path),nchar(path)) != '/') {
 		path <- paste(path, '/', sep='');
 	}
-	
+
 	# pad with leading zeros if requested
 	if (paduniquenames) {
 		maxlength <- max(nchar(as.character(uniquenames)))
 		uniquenames <- pad.zero(uniquenames, maxlength)
 	}
-	
+
 	# assemble the file names
 	filenames <- paste(path,prefix,uniquenames,suffix, sep=''); # get file names
-	
+
 	# read the files as a list
 	if (addfilename) {
 		datalist <- lapply(filenames, function(x) data.frame(cbind(
@@ -62,45 +63,45 @@ read.multiple.table <- function(uniquenames, path=getwd(), prefix='',
 	} else {
 		datalist <- lapply(filenames, function(x) read.table(file=x, ...))
 	}
-	
+
 	# convert the list to a single dataframe
 	data <- do.call(rbind, datalist)
-	
-	data	
+
+	data
 
 }
 
 #' @rdname read.multiple
 #' @export
-read.multiple.csv <- function(uniquenames, path=getwd(), prefix='', 
-                              suffix='.csv', addfilename=FALSE, 
-                              paduniquenames=FALSE, ...) {	
-                              
+read.multiple.csv <- function(uniquenames, path=getwd(), prefix='',
+                              suffix='.csv', addfilename=FALSE,
+                              paduniquenames=FALSE, ...) {
+
 	# check to make sure the path has a / at the end
 	if (substr(path,nchar(path),nchar(path)) != '/') {
 		path <- paste(path, '/', sep='');
 	}
-	
+
 	# pad with leading zeros if requested
 	if (paduniquenames) {
 		maxlength <- max(nchar(as.character(uniquenames)))
 		uniquenames <- pad.zero(uniquenames, maxlength)
-	}	
-	
+	}
+
 	# assemble the file names
 	filenames <- paste(path,prefix,uniquenames,suffix, sep=''); # get file names
-	
+
 	# read the files as a list
 	if (addfilename) {
 		datalist <- lapply(filenames, function(x) data.frame(cbind(
 		  read.csv(file=x, ...), Filename=x)))
 	} else {
-		datalist <- lapply(filenames, function(x) read.csv(file=x, ...))	
+		datalist <- lapply(filenames, function(x) read.csv(file=x, ...))
 	}
-	
+
 	# convert the list to a single dataframe
 	data <- do.call(rbind, datalist)
-	
-	data	
-	
+
+	data
+
 }

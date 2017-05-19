@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Calculates the empirical logit for binomial data; i.e., data that consists of
-#' "hits" (1s) versus "misses" (0s).  The formula for the empirical logit 
+#' "hits" (1s) versus "misses" (0s).  The formula for the empirical logit
 #' requires specification of the sample size; sample size may be provided to
 #' this function in any one of three ways:
 #' \itemize{
@@ -68,6 +68,7 @@
 #' my.emplogit <- emplogit(rawdata=as.factor(c('no','no','yes','no')))
 #' my.emplogit
 #' @export
+#' @importFrom stats na.omit
 
 emplogit <- function(hits,n,proportion,rawdata, na.rm=FALSE) {
 
@@ -79,14 +80,14 @@ emplogit <- function(hits,n,proportion,rawdata, na.rm=FALSE) {
 		stop(
 		'Provide only ONE of raw data, number of hits, or proportion of hits')
 	}
-	
+
 	if (!missing('hits')) {
 		if (any(hits > n)) {
 			warning('Number of hits greater than total number of observations!')
 		} else if (any(hits < 0)) {
 			warning('Number of hits must be >= 0')
 		}
-	}	
+	}
 
 	if (!missing('rawdata')) {
 		# Calculate empirical logit from the raw data
@@ -126,15 +127,14 @@ emplogit <- function(hits,n,proportion,rawdata, na.rm=FALSE) {
 			stop('Raw data must be numeric, factor, or logical')
 		}
 	}
-	
+
 	if (!missing('proportion')) {
 		if (proportion > 1 | proportion < 0) {
 			warning('Proportions must be 0 <= y <= 1')
 		}
 		hits = n * proportion
 	}
-	
+
 	log((hits+.5)/(n-hits+.5))
 }
-	
-	
+

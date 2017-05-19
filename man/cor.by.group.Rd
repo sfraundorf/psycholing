@@ -11,7 +11,7 @@ cor.by.group(x, y, INDEX, ...)
 
 \item{y}{the other numeric vector to be correlated.}
 
-\item{INDEX}{list of one or more grouping variables, typically factors, each 
+\item{INDEX}{list of one or more grouping variables, typically factors, each
 of the same length as \code{x}.}
 
 \item{...}{arguments to \code{\link{cor}}.}

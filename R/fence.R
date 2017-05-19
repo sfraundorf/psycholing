@@ -32,14 +32,15 @@
 #' my.data <- data.frame(RT=rnorm(300, mean=789, sd=150))
 #' my.data$FencedRT <- fence(my.data$RT, sds=2.5)
 #' @export
+#' @importFrom stats sd na.omit
 
 fence <- function(x,sds=3,print=TRUE,na.rm=FALSE) {
-	
+
 	upperlimit <- mean(x, na.rm=na.rm) + (sd(x, na.rm=na.rm) * sds)
 	lowerlimit <- mean(x, na.rm=na.rm) - (sd(x, na.rm=na.rm) * sds)
-	
+
 	y <- ifelse(x>upperlimit, upperlimit, ifelse(x<lowerlimit, lowerlimit, x))
-	
+
 	if (print) {
 		if (na.rm & any(is.na(y))) {
 			# Display percentages w/ and w/o NAs
@@ -55,7 +56,7 @@ fence <- function(x,sds=3,print=TRUE,na.rm=FALSE) {
 			  ' (', round(100*prop.unequal(x,y),2), '%)', sep=''))
 		}
 	}
-	
+
 	y
 
 }

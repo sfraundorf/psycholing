@@ -5,7 +5,7 @@
 #' Likert scale ratings within each participant, or z-score response times
 #' within each participant x condition pairing.
 #' @param x a numeric vector
-#' @param INDEX list of one or more grouping variables, typically factors, each 
+#' @param INDEX list of one or more grouping variables, typically factors, each
 #' of the same length as x
 #' @return numeric vector with \code{x} z-scored separately within each level
 #' of \code{INDEX}
@@ -22,9 +22,10 @@
 #' my.data$Rating.SubjectSession.z <- zscore.by.group(my.data$Rating,
 #' list(my.data$Subject, my.data$Session))
 #' @export
+#' @importFrom stats ave sd
 
 zscore.by.group <- function(x,INDEX) {
-	
+
 	(x - ave(x, INDEX, FUN=mean))/ave(x, INDEX, FUN=sd)
-	
+
 }

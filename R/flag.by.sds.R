@@ -24,20 +24,21 @@
 #' my.data <- data.frame(RT=rnorm(300, mean=789, sd=150))
 #' my.data$OutlyingRT <- flag.by.sds(my.data$RT, sds=2)
 #' @export
+#' @importFrom stats sd na.omit
 
 flag.by.sds <- function(x, sds=3, print=TRUE, na.rm=FALSE) {
-	
+
 	upperlimit <- mean(x, na.rm=na.rm) + (sd(x, na.rm=na.rm) * sds)
 	lowerlimit <- mean(x, na.rm=na.rm) - (sd(x, na.rm=na.rm) * sds)
-	
+
 	y <- ifelse(x>upperlimit, TRUE, ifelse(x<lowerlimit, TRUE, FALSE))
-	
+
 	if (print) {
 		if (na.rm & any(is.na(y))) {
 			# Display percentages w/ and w/o NAs
 			print(paste('# flagged: ', sum(y, na.rm=na.rm),
 			  ' (', round(100*(sum(y, na.rm=na.rm)/length(na.omit(y))),2),
-			  '% non-NA observations)',			
+			  '% non-NA observations)',
 			  ' (', round(100*(sum(y, na.rm=na.rm)/length(y)),2),
 			  '% all observations)',
 			  sep=''))
@@ -46,7 +47,7 @@ flag.by.sds <- function(x, sds=3, print=TRUE, na.rm=FALSE) {
 			  ' (', round(100*(sum(y)/length(y)),2), '%)', sep=''))
 		}
 	}
-	
+
 	y
 
 }

@@ -3,7 +3,7 @@
 #' @description
 #' Calculates the standard error of the mean of x with or without applying the
 #' Bessel correction (dividing by \emph{N}-1 rather than \emph{N}).  Default
-#' behavior is to apply the correction.	
+#' behavior is to apply the correction.
 #'
 #' @details
 #' Note that Bessel's correction provides an unbiased estimate of the
@@ -23,7 +23,8 @@
 #' @examples
 #' stderror(c(150, 115, 130, 170, 190))
 #' @export
-	
+#' @importFrom stats na.omit
+
 stderror <- function(x,bessel=TRUE,na.rm=FALSE) {
 
 	if (na.rm) {
@@ -31,8 +32,8 @@ stderror <- function(x,bessel=TRUE,na.rm=FALSE) {
 	} else {
 		n <- length(x)
 	}
-	sd <- sd(x, na.rm=na.rm)	
-	
+	sd <- sd(x, na.rm=na.rm)
+
 	if (bessel) {
 		sd/sqrt(n-1)
 	} else {

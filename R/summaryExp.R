@@ -36,8 +36,9 @@
 #'   family=binomial, data=VerbAgg)
 #' summaryExp(model1)
 #' @export
-		
-summaryExp <- function(model, confidence=.95) {		
+#' @importFrom stats family qnorm
+
+summaryExp <- function(model, confidence=.95) {
 	# Check the model family:
 	if (family(model)$family == 'binomial') {
 		coef.column.name <- 'Odds Ratio'
@@ -46,24 +47,24 @@ summaryExp <- function(model, confidence=.95) {
 	} else {
 		stop('Not a supported model family.')
 	}
-	
+
 	# Check the link function:
 	if (summary(model)$link != 'logit') {
 		stop('Not a supported link function.')
 	}
-	
+
 	# Change percents into proportions if needed:
 	if (confidence > 1) {
 		confidence = confidence/100
-	}	
-	
+	}
+
 	# Get the existing model summary:
 	model.summary <- summary(model)
 	coefs <- model.summary$coefficients
 
 	# Exponeniate the coefficients:
 	exp.estimate <- exp(coefs[,1])
-	
+
 	# Calculate confidence interval:
 	z <- qnorm((1-confidence)/2, lower.tail=FALSE)
 	ci.lower <- exp(coefs[,1] - (z * coefs[,2]))
@@ -79,7 +80,7 @@ summaryExp <- function(model, confidence=.95) {
 	                                    'Pr(>|z|)'=coefs[,'Pr(>|z|)'])
 	colnames(model.summary$coefficients)[colnames(model.summary$coefficients)
 	    == 'Exp Coeff'] <- coef.column.name
-		
+
 	# Display:
 	model.summary
 }
