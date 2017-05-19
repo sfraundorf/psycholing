@@ -8,9 +8,9 @@
 #' fence response times that are more than 2.5 standard deviations from the mean
 #' within each cell of a PrimeType x WordFrequency factorial experimental
 #' design.
-#' 
+#'
 #' @param x a numeric vector.
-#' @param INDEX list of one or more grouping variables, typically factors, each 
+#' @param INDEX list of one or more grouping variables, typically factors, each
 #' of the same length as \code{x}.
 #' @param sds number of standard deviations away from the mean at which
 #' values should be replaced.
@@ -38,24 +38,24 @@
 #' @export
 
 fence.by.group <- function(x,INDEX,sds=3, print=TRUE, na.rm=FALSE) {
-	
-	y <- ifelse(x > (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), x) +
-	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), x))), 
-	            unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), x) +
-	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), x)),
-         ifelse(x < (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), x) -
-	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), x))),
-	            unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), x) -
-	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), x)),
+
+	y <- ifelse(x > (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), INDEX) +
+	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), INDEX))),
+	            unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), INDEX) +
+	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), INDEX)),
+         ifelse(x < (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), INDEX) -
+	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), INDEX))),
+	            unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), INDEX) -
+	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), INDEX)),
 	     x))
-		 
-	if (print) {    
+
+	if (print) {
 		if (na.rm & any(is.na(y))) {
 			# Display percentages w/ and w/o NAs
 			number.fenced <- sum(na.omit(x) != na.omit(y))
 			print(paste('# fenced: ', number.fenced,
 			  ' (', round(100*(number.fenced/length(na.omit(y))),2),
-			  '% non-NA observations)',			
+			  '% non-NA observations)',
 			  ' (', round(100*(number.fenced/length(y)),2),
 			  '% all observations)',
 			  sep=''))
@@ -64,7 +64,7 @@ fence.by.group <- function(x,INDEX,sds=3, print=TRUE, na.rm=FALSE) {
 			  ' (', round(100*prop.unequal(x,y),2), '%)', sep=''))
 		}
 	}
-	
+
 	y
-		
+
 }

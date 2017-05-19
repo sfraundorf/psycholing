@@ -10,7 +10,7 @@
 #' mean within a particular subject x condition cell in an experimental design.
 #'
 #' @param x a numeric vector.
-#' @param INDEX list of one or more grouping variables, typically factors, each 
+#' @param INDEX list of one or more grouping variables, typically factors, each
 #' of the same length as \code{x}.
 #' @param sds number of standard deviations away from the mean at which
 #' "extreme" values should be identified.
@@ -38,30 +38,30 @@
 #' @export
 
 flag.by.group <- function(x, INDEX, sds=3, print=TRUE, na.rm=FALSE) {
-	
-	y <- ifelse(x > (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), x) +
-	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), x))), 
+
+	y <- ifelse(x > (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), INDEX) +
+	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), INDEX))),
 	            TRUE,
-         ifelse(x < (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), x) -
-	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), x))),
+         ifelse(x < (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), INDEX) -
+	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), INDEX))),
 	            TRUE,
 	     FALSE))
-	           
+
 	if (print) {
 		if (na.rm & any(is.na(y))) {
 			# Display percentages w/ and w/o NAs
 			print(paste('# flagged: ', sum(y, na.rm=na.rm),
 			  ' (', round(100*(sum(y, na.rm=na.rm)/length(na.omit(y))),2),
-			  '% non-NA observations)',			
+			  '% non-NA observations)',
 			  ' (', round(100*(sum(y, na.rm=na.rm)/length(y)),2),
 			  '% all observations)',
-			  sep=''))			
+			  sep=''))
 		} else {
 			print(paste('# flagged: ', sum(y),
 			  ' (', round(100*(sum(y)/length(y)),2), '%)', sep=''))
 		}
 	}
-	      	
+
 	y
-		
+
 }

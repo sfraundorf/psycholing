@@ -7,9 +7,9 @@
 #' values more than 3 standard deviations from the).  For example, trim response
 #' times that are more than 2.5 standard deviations from the mean within each
 #' cell of a PrimeType x WordFrequency factorial experimental design.
-#' 
+#'
 #' @param x a numeric vector.
-#' @param INDEX list of one or more grouping variables, typically factors, each 
+#' @param INDEX list of one or more grouping variables, typically factors, each
 #' of the same length as \code{x}.
 #' @param sds number of standard deviations away from the mean at which
 #' values should be trimmed.
@@ -37,16 +37,16 @@
 #' @export
 
 trim.by.group <- function(x, INDEX, sds=3, print=TRUE, na.rm=FALSE) {
-	
-	y <- ifelse(x > (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), x) +
-	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), x))), 
+
+	y <- ifelse(x > (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), INDEX) +
+	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), INDEX))),
 	            NA,
-         ifelse(x < (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), x) -
-	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), x))),
+         ifelse(x < (unsplit(lapply(split(x,INDEX), mean, na.rm=na.rm), INDEX) -
+	                sds * (unsplit(lapply(split(x,INDEX), sd, na.rm=na.rm), INDEX))),
 	            NA,
 	     x))
-	 
-	if (print) {     
+
+	if (print) {
 		if (na.rm & any (is.na(x))) {
 			# Display percentages w/ and w/o NAs
 			number.trimmed <- sum(is.na(y)) - sum(is.na(x))
@@ -64,7 +64,7 @@ trim.by.group <- function(x, INDEX, sds=3, print=TRUE, na.rm=FALSE) {
 			  ' (', round(100 *(number.trimmed / length(y)), 2), '%)', sep=''))
 		}
 	}
-	
+
 	y
-		
+
 }

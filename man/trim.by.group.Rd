@@ -9,7 +9,7 @@ trim.by.group(x, INDEX, sds = 3, print = TRUE, na.rm = FALSE)
 \arguments{
 \item{x}{a numeric vector.}
 
-\item{INDEX}{list of one or more grouping variables, typically factors, each 
+\item{INDEX}{list of one or more grouping variables, typically factors, each
 of the same length as \code{x}.}
 
 \item{sds}{number of standard deviations away from the mean at which
