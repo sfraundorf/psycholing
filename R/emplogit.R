@@ -129,7 +129,7 @@ emplogit <- function(hits,n,proportion,rawdata, na.rm=FALSE) {
 	}
 
 	if (!missing('proportion')) {
-		if (proportion > 1 | proportion < 0) {
+		if (any(proportion > 1) | any(proportion < 0)) {
 			warning('Proportions must be 0 <= y <= 1')
 		}
 		hits = n * proportion
