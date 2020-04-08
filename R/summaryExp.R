@@ -2,7 +2,7 @@
 #' Coefficients
 #'
 #' @description
-#' For a \code{glmer} model fit using the logit or log link function, displays
+#' For a \code{glm} or \code{glmer} model fit using the logit or log link function, displays
 #' a model summary with the exponentiation function applied to the fixed effect
 #' point estimates. Thus, estimates of effects on the \emph{log odds} in a
 #' logistic model become estimates of effects on the \emph{odds}, which are
@@ -49,7 +49,7 @@ summaryExp <- function(model, confidence=.95) {
 	}
 
 	# Check the link function:
-	if (summary(model)$link != 'logit') {
+	if (family(model)$link != 'logit') {
 		stop('Not a supported link function.')
 	}
 
