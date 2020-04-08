@@ -39,3 +39,6 @@ Jaeger, T. F. (2008). Categorical data analysis: Away from ANOVAs
 (transformation or not) and towards logit mixed models. \emph{Journal of
 Memory and Language}, \emph{59}, 434-446.
 }
+\seealso{
+\code{\link{logittoprob}} to transform logits back into probabilities.
+}
