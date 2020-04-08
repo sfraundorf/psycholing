@@ -4,12 +4,14 @@
 \alias{summaryCI}
 \title{Linear Mixed Effect Model Summary with Confidence Intervals}
 \usage{
-summaryCI(model, confidence = 0.95)
+summaryCI(model, confidence = 0.95, digits = 3)
 }
 \arguments{
 \item{model}{\code{lmer} model to be summarized.}
 
 \item{confidence}{desired level of confidence for the confidence interval.}
+
+\item{digits}{integer, used for number formatting}
 }
 \value{
 model summary including confidence intervals.
