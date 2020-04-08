@@ -23,6 +23,8 @@
 #' (transformation or not) and towards logit mixed models. \emph{Journal of
 #' Memory and Language}, \emph{59}, 434-446.
 #' @seealso \code{\link{logittoprob}} to transform logits back into probabilities.
+#' @seealso \code{\link{probdifftologit}} to transform a \emph{difference} o
+#' probabilities into logits.
 #' @examples
 #' mydata = data.frame(Accuracy.Proportion = c(0.5,0.75,0.90,0.2))
 #' mydata$Accuracy.Logit <- logit(mydata$Accuracy.Proportion)

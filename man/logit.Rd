@@ -41,4 +41,7 @@ Memory and Language}, \emph{59}, 434-446.
 }
 \seealso{
 \code{\link{logittoprob}} to transform logits back into probabilities.
+
+\code{\link{probdifftologit}} to transform a \emph{difference} o
+probabilities into logits.
 }
