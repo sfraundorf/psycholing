@@ -1,10 +1,10 @@
 Package: psycholing
 Title: R Functions for Common Psycholingusitic and Cognitive Designs
-Version: 0.5.2
-Date: 2017-05-19
+Version: 0.5.3
+Date: 2020-04-08
 Authors@R: person("Scott", "Fraundorf", email = "scottfraundorf@gmail.com", role = c("aut", "cre"))
 Description: Performs data processing and supports modeling for common experimental designs in psycholinguistics and cognitive psychology.
 Depends: R (>= 3.2.0), lme4
 License: GPL (>= 2)
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 7.0.0

@@ -4,8 +4,12 @@
 \alias{lmer.compare}
 \title{Compare Multiple Mixed-Effects Models on AIC and BIC}
 \usage{
-lmer.compare(listofmodels, show.formulae = TRUE, summarize.aic = FALSE,
-  summarize.bic = FALSE)
+lmer.compare(
+  listofmodels,
+  show.formulae = TRUE,
+  summarize.aic = FALSE,
+  summarize.bic = FALSE
+)
 }
 \arguments{
 \item{listofmodels}{a list of \code{merMod} objects.}

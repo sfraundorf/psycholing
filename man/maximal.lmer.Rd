@@ -4,9 +4,17 @@
 \alias{maximal.lmer}
 \title{Linear Mixed Effect Model with Maximal Random Effects Structure}
 \usage{
-maximal.lmer(data, outcome, subjects = "Subject", items = "Item",
-  ivs = NULL, within.subjects = NULL, within.items = NULL,
-  fit.model = FALSE, ...)
+maximal.lmer(
+  data,
+  outcome,
+  subjects = "Subject",
+  items = "Item",
+  ivs = NULL,
+  within.subjects = NULL,
+  within.items = NULL,
+  fit.model = FALSE,
+  ...
+)
 }
 \arguments{
 \item{data}{a data frame containing the data to be fit with the model.}

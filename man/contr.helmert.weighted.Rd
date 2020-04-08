@@ -4,9 +4,11 @@
 \alias{contr.helmert.weighted}
 \title{Weighted Helmert Contrasts for Factor Variables}
 \usage{
-contr.helmert.weighted(x,
+contr.helmert.weighted(
+  x,
   reference.levels = levels(as.factor(x))[-length(levels(as.factor(x)))],
-  na.rm = FALSE)
+  na.rm = FALSE
+)
 }
 \arguments{
 \item{x}{a factor variable (or variable that can be coerced to a factor) for

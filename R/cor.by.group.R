@@ -31,3 +31,4 @@ cor.by.group <- function(x, y, INDEX, ...) {
 	mapply(function(x,y) cor(x,y, ...), split(x,INDEX), split(y,INDEX))
 
 }
+

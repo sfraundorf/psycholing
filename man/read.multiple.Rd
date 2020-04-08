@@ -5,11 +5,25 @@
 \alias{read.multiple.csv}
 \title{Data Input from Multiple Files}
 \usage{
-read.multiple.table(uniquenames, path = getwd(), prefix = "",
-  suffix = ".txt", addfilename = FALSE, paduniquenames = FALSE, ...)
+read.multiple.table(
+  uniquenames,
+  path = getwd(),
+  prefix = "",
+  suffix = ".txt",
+  addfilename = FALSE,
+  paduniquenames = FALSE,
+  ...
+)
 
-read.multiple.csv(uniquenames, path = getwd(), prefix = "",
-  suffix = ".csv", addfilename = FALSE, paduniquenames = FALSE, ...)
+read.multiple.csv(
+  uniquenames,
+  path = getwd(),
+  prefix = "",
+  suffix = ".csv",
+  addfilename = FALSE,
+  paduniquenames = FALSE,
+  ...
+)
 }
 \arguments{
 \item{uniquenames}{A vector of string filenames, or if \code{prefix} and/or

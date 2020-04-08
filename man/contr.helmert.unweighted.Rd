@@ -4,8 +4,11 @@
 \alias{contr.helmert.unweighted}
 \title{Unweighted Helmert Contrast Matrices}
 \usage{
-contr.helmert.unweighted(x, reference.levels = levels[-length(levels)],
-  n = NULL)
+contr.helmert.unweighted(
+  x,
+  reference.levels = levels[-length(levels)],
+  n = NULL
+)
 }
 \arguments{
 \item{x}{a factor variable (or variable that can be coerced to a factor) for
