@@ -43,7 +43,7 @@
 #' @importFrom stats contr.helmert
 
 contr.helmert.weighted <- function(x,
-           reference.levels=levels(as.factor(x))[-length(levels(as.factor(x)))],
+           reference.levels=levels(x)[-length(levels(x))],
            na.rm=FALSE) {
 
     # Coerce to a factor if needed:

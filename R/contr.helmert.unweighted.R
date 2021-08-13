@@ -49,7 +49,7 @@
 #' @export
 #' @importFrom stats contr.helmert
 
-contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
+contr.helmert.unweighted <- function(x,reference.levels=my.levels[-length(my.levels)],
                                  n=NULL) {
 
 	# Check to make sure that both a factor and a number of levels have not
@@ -58,8 +58,9 @@ contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
 		stop('Provide vector of data OR number of levels, not both')
 	}
 
-	# Work with a vector of data:
+  # Get levels...
 	if (missing(n)) {
+	  # ...from a vector of data
 
 		# Coerce to a factor if needed:
 		if (is.factor(x) == FALSE) {
@@ -67,18 +68,18 @@ contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
 			x <- as.factor(x)
 		}
 
-		# Get levels:
-		n <- levels(x)
-	}
-
-	# Get levels:
-	if (is.numeric(n)) {
-		levels <- 1:n
+	  my.levels <- levels(x)
 	} else {
-		levels <- levels(factor(n))
-	}
+    # ...from a set of levels
+	  if (is.numeric(n)) {
+	    my.levels <- 1:n
+	  } else {
+	    my.levels <- levels(factor(n))
+	  }
+  }
+
 	# Get number of levels:
-	numlevels <- length(levels)
+	numlevels <- length(my.levels)
 	# Get number of contrasts:
 	k <- numlevels-1
 
@@ -100,7 +101,7 @@ contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
 	# Convert the reference levels from characters to numbers, if needed:
 	if (is.character(reference.levels)) {
 		newreflevels <- sapply(reference.levels,
-		   function(y) which(levels==y)[1])
+		   function(y) which(my.levels==y)[1])
 		if (any(is.na(newreflevels))) {
 			# User named a level that's not actually a level of the factor
 			badlevels <- newreflevels[is.na(newreflevels)]
@@ -118,9 +119,9 @@ contr.helmert.unweighted <- function(x,reference.levels=levels[-length(levels)],
 	contrast.order <- c(reference.levels,
 	   which(c(1:numlevels) %in% reference.levels==FALSE)[1])
 	# Step 2 - name the contrast matrix accordingly
-	rownames(orig.matrix) <- levels[contrast.order]
+	rownames(orig.matrix) <- my.levels[contrast.order]
 	# Step 3 - reorder matrix to match the original ordering of factor levels
-	sorted.matrix <- orig.matrix[levels,,drop=FALSE]
+	sorted.matrix <- orig.matrix[my.levels,,drop=FALSE]
 
 	# Rescale and return:
 	apply(sorted.matrix, 2, function(x) x/length(x[x != 0]) )
