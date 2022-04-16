@@ -6,7 +6,7 @@
 \usage{
 contr.helmert.weighted(
   x,
-  reference.levels = levels(as.factor(x))[-length(levels(as.factor(x)))],
+  reference.levels = levels(x)[-length(levels(x))],
   na.rm = FALSE
 )
 }

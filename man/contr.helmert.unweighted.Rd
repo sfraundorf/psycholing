@@ -6,7 +6,7 @@
 \usage{
 contr.helmert.unweighted(
   x,
-  reference.levels = levels[-length(levels)],
+  reference.levels = my.levels[-length(my.levels)],
   n = NULL
 )
 }
